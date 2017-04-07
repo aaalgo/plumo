@@ -12,7 +12,7 @@ Usage:
 
 ./process.sh  input output
 
-input: an input directory contains dicom files of one patient case.
+input: an input directory containing dicom files (input/*.dcm).
 output: output directory where results (HTML) are written to.
 ```
 Output format is designed to be viewed with a web browser on the local

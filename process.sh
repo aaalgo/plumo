@@ -9,12 +9,12 @@ else
     exit
 fi
 
-if nvidia-docker inspect aaalgo/adsb3 >& /dev/null
+if nvidia-docker inspect wdong/adsb3 >& /dev/null
 then
     true
 else
-    echo "Downloading aaalgo/adsb3 docker image, please be patient...."
-    nvidia-docker pull aaalgo/adsb3
+    echo "Downloading wdong/adsb3 docker image, please be patient...."
+    nvidia-docker pull wdong/adsb3
 fi
 
 INPUT=$1

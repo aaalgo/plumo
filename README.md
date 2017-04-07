@@ -2,9 +2,10 @@
 Author: Wei Dong (wdong@wdong.org)
 
 This repository contains the dockerized version of my best
-single lung cancer model for Data Science Bowl 2017.
+single (not-emsembled) lung cancer model for Data Science Bowl 2017
+(cross validation loss around 0.425).
 
-You'll need nvidia-docker to run the program.
+You need nvidia-docker to run the program.
 
 ```
 Usage:
@@ -13,6 +14,9 @@ Usage:
 
 input: an input directory contains dicom files of one patient case.
 output: output directory where results (HTML) are written to.
+
+The output directory contains all dicom files and a 3D lung mesh
+model and therefore consumes a lot of space.
 
 ```
 

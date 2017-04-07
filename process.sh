@@ -55,6 +55,6 @@ MY_UID=`id -u`
 MY_GID=`id -g`
 
 mkdir -p $OUTPUT
-nvidia-docker run -u=$MY_UID:$MY_GID -it -v $PWD/src:/adsb3 -v $INPUT:/input -v $OUTPUT:/output aaalgo/adsb3 /adsb3/run.sh
+nvidia-docker run -u=$MY_UID:$MY_GID -it -v $PWD/src:/adsb3 -v $INPUT:/input -v $OUTPUT:/output wdong/adsb3 /adsb3/run.sh
 
 

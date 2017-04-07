@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
+    	<!-- iOS meta tags -->
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    	<link rel="stylesheet" type="text/css" href="papaya.css?build=1422" />
+    	<script type="text/javascript" src="papaya.js?build=1422"></script>
+    
+    	<title>AAALGO Lung Nodule Detector</title>
+    
+    	<script type="text/javascript">
+
+var ctxManager = function() {
+    this.boxes = [
+		{% for z1, y1, x1, z2, y2, x2 in boxes %}
+    {
+      'lb':{'x':{{x1}}, 'y':{{y1}}, 'z':{{z1}}},
+      'ub':{'x':{{x2}}, 'y':{{y2}}, 'z':{{z2}}}
+    },
+		{% endfor %}
+		];
+};
+
+/*
+
+ctxManager.menudata = {"label": "Test",
+    "items": [
+        {"label": "Log Point", "action": "Context-Log"},
+        {"label": "Clear Points", "action": "Context-Clear"}
+    ]
+};
+
+ctxManager.prototype.getContextAtImagePosition = function(x, y, z) {
+    return ctxManager.menudata;
+};
+
+ctxManager.prototype.actionPerformed = function(action) {
+    if (action === "Log") {
+        var currentCoor = papayaContainers[0].viewer.cursorPosition;
+        var coor = new papaya.core.Coordinate(currentCoor.x, currentCoor.y, currentCoor.z);
+        this.loggedPoints.push(coor);
+    } else if (action === "Clear") {
+        this.loggedPoints = [];
+    }
+
+    papayaContainers[0].viewer.drawViewer();
+};
+*/
+
+ctxManager.prototype.drawToViewer = function(ctx) {
+	  var viewer = papayaContainers[0].viewer;
+	  var cur = viewer.currentCoord;
+    ctx.save();
+    ctx.strokeStyle="red";
+    for (var i = 0; i < this.boxes.length; i += 1) {
+			var box = this.boxes[i];
+      if ((cur.x > box.lb.x) && (cur.x < box.ub.x)) { // sagittal
+				var c1 = viewer.convertCoordinateToScreen(box.lb, viewer.sagittalSlice);
+				var c2 = viewer.convertCoordinateToScreen(box.ub, viewer.sagittalSlice);
+        ctx.rect(c1.x, c1.y, c2.x-c1.x, c2.y-c1.y);
+      }
+      if ((cur.y > box.lb.y) && (cur.y < box.ub.y)) { // sagittal
+				var c1 = viewer.convertCoordinateToScreen(box.lb, viewer.coronalSlice);
+				var c2 = viewer.convertCoordinateToScreen(box.ub, viewer.coronalSlice);
+        ctx.rect(c1.x, c1.y, c2.x-c1.x, c2.y-c1.y);
+      }
+      if ((cur.z > box.lb.z) && (cur.z < box.ub.z)) { // sagittal
+				var c1 = viewer.convertCoordinateToScreen(box.lb, viewer.axialSlice);
+				var c2 = viewer.convertCoordinateToScreen(box.ub, viewer.axialSlice);
+        ctx.rect(c1.x, c1.y, c2.x-c1.x, c2.y-c1.y);
+			}
+		}
+    ctx.stroke();
+    ctx.restore();
+};
+
+/**
+ * Called when image position changes.
+ */
+/*
+ctxManager.prototype.clearContext = function() {
+    // do nothing
+};
+*/
+
+  var params = [];
+  params['images'] = [[
+    {% for image in images %}
+    "{{image}}",
+    {% endfor %}
+    ]];
+  params['Axial'] = {'min':-1000, 'max':500, 'lut':'Spectrum'};
+	params['contextManager'] = new ctxManager();
+  {% if centers %}
+  params['coordinate'] = [{{centers[0][2]}},
+                          {{centers[0][1]}},
+                          {{centers[0][0]}}];
+  {% endif %}
+
+  function goto_location (x, y, z) {
+	  var viewer = papayaContainers[0].viewer;
+    viewer.gotoCoordinate({'x':x, 'y':y, 'z':z});
+  }
+</script>
+
+	</head>
+
+	<body>
+		
+		<div class="papaya" data-params="params"></div>
+		
+    <div style='position: absolute; left:0px; top:0px;'>
+      <a href='lung/index.html'>Lung</a>
+      <table>
+        <tr><th>Nodules</th><th></th></tr>
+        {% for z, y, x, hint in centers %}
+        <tr><td>{{hint}}</td>
+          <td><button
+                      {% if hint %}
+                      title="{{hint}}"
+                      {% endif %}
+              onclick='goto_location({{x}},{{y}},{{z}})'>Locate</button></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+	</body>
+</html>

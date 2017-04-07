@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+	<style>
+		body {font-family:Calibri;}
+	</style>
+</head>
+<body>
+<table>
+{% if header %}
+<tr>
+  {% for col in header %}
+  <th>{{col}}</th>
+  {% endfor %}
+</tr>
+{% endif %}
+{% for row in images %}
+<tr>
+  {% for col in row %}
+  <td>
+    {% if col.image %}
+    {% if col.link %}
+    <a href='{{col.link}}'><img src='{{col.image}}'></img></a>
+    {% else %}
+    <img src='{{col.image}}'></img>
+    {% endif %}
+    {% if col.text %}
+    <br/>
+    {% endif %}
+    {% endif %}
+    {% if col.text %}
+    {{col.text}}
+    {% endif %}
+  </td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+</body>
+
+
+<body>
+

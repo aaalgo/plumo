@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
+    	<!-- iOS meta tags -->
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    	<link rel="stylesheet" type="text/css" href="papaya.css?build=1422" />
+    	<script type="text/javascript" src="papaya.js?build=1422"></script>
+    
+    	<title>Papaya Viewer</title>
+    
+    	<script type="text/javascript">
+
+/*
+
+ctxManager.menudata = {"label": "Test",
+    "items": [
+        {"label": "Log Point", "action": "Context-Log"},
+        {"label": "Clear Points", "action": "Context-Clear"}
+    ]
+};
+
+ctxManager.prototype.getContextAtImagePosition = function(x, y, z) {
+    return ctxManager.menudata;
+};
+
+ctxManager.prototype.actionPerformed = function(action) {
+    if (action === "Log") {
+        var currentCoor = papayaContainers[0].viewer.cursorPosition;
+        var coor = new papaya.core.Coordinate(currentCoor.x, currentCoor.y, currentCoor.z);
+        this.loggedPoints.push(coor);
+    } else if (action === "Clear") {
+        this.loggedPoints = [];
+    }
+
+    papayaContainers[0].viewer.drawViewer();
+};
+*/
+
+
+/**
+ * Called when image position changes.
+ */
+/*
+ctxManager.prototype.clearContext = function() {
+    // do nothing
+};
+*/
+
+  var params = [];
+  params['images'] = [[
+    {% for image in images %}
+    "{{uid}}/{{image}}",
+    {% endfor %}
+  ], "{{uid}}.nii.gz"];
+  
+
+</script>
+
+	</head>
+
+	<body>
+		
+		<div class="papaya" data-params="params"></div>
+	</body>
+</html>

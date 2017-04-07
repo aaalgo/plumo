@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+	<style>
+		body {font-family:Calibri;}
+	</style>
+</head>
+<body>
+<table>
+<tr>
+  <th>uid</th>
+  <th>slices</th>
+  <th>length</th>
+</tr>
+{% for case in cases %}
+<tr>
+	<td><a href='{{case.uid}}/'>{{case.uid}}</a></td>
+	<td>{{case.slices}}</td>
+	<td>{{case.length}}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+
+
+<body>
+

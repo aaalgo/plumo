@@ -2,7 +2,7 @@
 Author: Wei Dong (wdong@wdong.org)
 
 This repository contains the dockerized version of my best
-single (not-emsembled) lung cancer model for Data Science Bowl 2017
+single (non-ensembled) lung cancer model for Data Science Bowl 2017
 (cross validation loss around 0.425).
 
 You need nvidia-docker to run the program.

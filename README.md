@@ -14,10 +14,10 @@ Usage:
 
 input: an input directory contains dicom files of one patient case.
 output: output directory where results (HTML) are written to.
-
-The output directory contains all dicom files and a 3D lung mesh
-model and therefore consumes a lot of space.
-
 ```
+Output format is designed to be viewed with a web browser on the local
+machine.  Because the output contains all dicom files and a 3D lung mesh
+model and is quite large, it is not suitable to be served on a web
+server.
 
 More models and training code are upcoming.

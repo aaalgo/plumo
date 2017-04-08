@@ -11,10 +11,9 @@ Usage:
 
 ./process.sh  input output
 
-input: an input directory contains dicom files of one case.
-output: output directory where results are written to.
+input: an input directory contains dicom files of one patient case.
+output: output directory where results (HTML) are written to.
 
 ```
 
-
-
+More models and training code are upcoming.

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+	</head>
+
+	<body>
+      <table>
+      {% for case in cases %}
+      <tr><td><a href="{{case[0]}}.html">{{case[0]}}</a></td></tr><tr><td>{{case[1]}}</td></tr>
+      {% endfor %}
+      </table>
+	</body>
+</html>

@@ -9,12 +9,12 @@ else
     exit
 fi
 
-if nvidia-docker inspect wdong/adsb3 >& /dev/null
+if nvidia-docker inspect aaalgo/plumo >& /dev/null
 then
     true
 else
-    echo "Downloading wdong/adsb3 docker image, please be patient...."
-    nvidia-docker pull wdong/adsb3
+    echo "Downloading aaalgo/plumo docker image, please be patient...."
+    nvidia-docker pull aaalgo/plumo
 fi
 
 INPUT=$1
@@ -55,6 +55,6 @@ MY_UID=`id -u`
 MY_GID=`id -g`
 
 mkdir -p $OUTPUT
-nvidia-docker run -u=$MY_UID:$MY_GID -it -v $PWD/src:/adsb3 -v $INPUT:/input -v $OUTPUT:/output wdong/adsb3 /adsb3/run.sh
+nvidia-docker run -u=$MY_UID:$MY_GID -v $INPUT:/input -v $OUTPUT:/output aaalgo/plumo /adsb3/run.sh
 
 

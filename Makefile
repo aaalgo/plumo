@@ -1,2 +1,4 @@
 all:
-	nvidia-docker build -t wdong/adsb3 .
+	git submodule init
+	git submodule update
+	nvidia-docker build -t aaalgo/plumo .

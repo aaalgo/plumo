@@ -12,7 +12,7 @@
     	<link rel="stylesheet" type="text/css" href="papaya.css?build=1422" />
     	<script type="text/javascript" src="papaya.js?build=1422"></script>
     
-    	<title>AAALGO Lung Nodule Detector</title>
+    	<title>AAALGO Lung Cancer Detector</title>
     
     	<script type="text/javascript">
 
@@ -90,12 +90,8 @@ ctxManager.prototype.clearContext = function() {
 */
 
   var params = [];
-  params['images'] = [[
-    {% for image in images %}
-    "{{image}}",
-    {% endfor %}
-    ]];
-  params['Axial'] = {'min':-1000, 'max':500, 'lut':'Spectrum'};
+  params['images'] = ['case.nii.gz'];
+  params['case.nii.gz'] = {'min':-1000, 'max':500, 'lut':'Spectrum'};
 	params['contextManager'] = new ctxManager();
   {% if centers %}
   params['coordinate'] = [{{centers[0][2]}},

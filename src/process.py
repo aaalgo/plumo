@@ -18,6 +18,7 @@ import pyadsb3
 import mesh
 from papaya import Papaya, Annotations
 from three import Three
+from gallery import Gallery
 
 BATCH = 32
 MIN_NODULE_SIZE=30
@@ -289,13 +290,13 @@ def save_mesh (binary, path):
     Three(path, verts, faces)
 
 def box_center (box, view):
-    z0, y0, x0, z1, y1, x1 = bbox
+    z0, y0, x0, z1, y1, x1 = box
     if view == AXIAL:
-        return (z0+z1)2, (y0, x0, y1, x1)
+        return (z0+z1)//2, (y0, x0, y1, x1)
     elif view == SAGITTAL:
-        return (x0+x1)/2, (y0, z0, y1, z1)
+        return (x0+x1)//2, (y0, z0, y1, z1)
     elif view == CORONAL:
-        return (y0+y1)/2, (z0, x0, z1, x1)
+        return (y0+y1)//2, (z0, x0, z1, x1)
     else:
         assert False
     pass
@@ -331,13 +332,16 @@ def main (argv):
         ksize = FLAGS.dilate * 2 + 1
         mask = grey_dilation(mask, size=(ksize, ksize, ksize), mode='constant')
         pass
-    with tf.Session() as sess:
-        tf.global_variables_initializer().run()
-        nodule_model.load(sess)
-        dim, nodules = nodule_model.apply(sess, views, mask)
+    if True:
+        with tf.Session() as sess:
+            tf.global_variables_initializer().run()
+            nodule_model.load(sess)
+            dim, nodules = nodule_model.apply(sess, views, mask)
+            pass
         pass
-    pass
-
+    else:
+        dim = 11
+        nodules = []
 
     fts = []
     pos = []
@@ -352,7 +356,7 @@ def main (argv):
     global_score = Ny[0]
     pw = sorted(zip(pos, list(Ny)), key=lambda x:x[1], reverse=True)
 
-    gal = Gallery(FLAGS.output, cols=4, header=['nodule','score','axial','sagittal','coronal'])
+    gal = Gallery(FLAGS.output, cols=5, header=['nodule','score','axial','sagittal','coronal'])
     anno = Annotations()
     C = 1
     for box, score in pw:

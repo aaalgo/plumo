@@ -43,9 +43,8 @@ def Papaya (path, case, annotations=Annotations(), images = None, text = ''):
         pass
     pass
     os.mkdir(os.path.join(path, 'dcm'))
-    subprocess.check_call('cp %s/*.dcm %s/dcm/' % (case.path, path), shell=True)
-    images = glob(os.path.join(path, 'dcm/*.dcm'))
-    images = ['/'.join(x.split('/')[-2:]) for x in images]
+    subprocess.check_call('rm -rf %s/case.nii.gz' % (path, ), shell=True)
+    subprocess.check_call('dcm2niix -z i -o %s -f case %s' % (path, case.path), shell=True)
     boxes = []
     centers = []
     for anno in annotations.annos:
@@ -56,7 +55,7 @@ def Papaya (path, case, annotations=Annotations(), images = None, text = ''):
         center = ((z1+z2)/2, (y1+y2)/2, (x1+x2)/2,hint)
         centers.append(center)
     with open(os.path.join(path, 'index.html'), 'w') as f:
-        f.write(case_tmpl.render(images=images, boxes=boxes, centers=centers))
+        f.write(case_tmpl.render(boxes=boxes, centers=centers))
         pass
     pass
 

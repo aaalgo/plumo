@@ -372,6 +372,13 @@ def main (argv):
             view = views[v]
             image = get3c(view.images, cc)
             cv2.rectangle(image, (x0,y0), (x1,y1), (0,255,255))
+            if v == AXIAL:
+                image = cv2.flip(image, 1)
+            elif v == SAGITTAL:
+                image = cv2.transpose(image)
+                image = cv2.flip(image, 0)
+            elif v == CORONAL:
+                image = cv2.flip(image, -1)
             cv2.imwrite(gal.next(), image)
             pass
         C += 1

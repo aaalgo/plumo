@@ -168,13 +168,8 @@ class Model:
                 m.loader(sess)
         pass
 
-    def apply (self, sess, case, mask):
+    def apply (self, sess, views, mask):
         r = []
-        #comb = np.ones_like(case.images, dtype=np.float32)
-        views = [case.transpose(AXIAL)]
-        if self.mode > MODE_AXIAL:
-             views.append(case.transpose(SAGITTAL))
-             views.append(case.transpose(CORONAL))
         for m in self.models:
             if m is None:
                 r.append(None)
@@ -293,6 +288,19 @@ def save_mesh (binary, path):
     verts, faces = measure.marching_cubes(binary, 0.5)
     Three(path, verts, faces)
 
+def box_center (box, view):
+    z0, y0, x0, z1, y1, x1 = bbox
+    if view == AXIAL:
+        return (z0+z1)2, (y0, x0, y1, x1)
+    elif view == SAGITTAL:
+        return (x0+x1)/2, (y0, z0, y1, z1)
+    elif view == CORONAL:
+        return (y0+y1)/2, (z0, x0, z1, x1)
+    else:
+        assert False
+    pass
+
+
 def main (argv):
     nodule_model = Model(FLAGS.prob, FLAGS.mode, FLAGS.fts, FLAGS.channels, FLAGS.prob_dropout, FLAGS.fts_dropout)
     with open(os.path.join('models', FLAGS.score), 'rb') as f:
@@ -315,6 +323,10 @@ def main (argv):
     mask.round_stride(FLAGS.stride)
     mask = mask.images
 
+    views = [case.transpose(AXIAL),
+             case.transpose(SAGITTAL),
+             case.transpose(CORONAL)]
+
     if FLAGS.dilate > 0:
         ksize = FLAGS.dilate * 2 + 1
         mask = grey_dilation(mask, size=(ksize, ksize, ksize), mode='constant')
@@ -322,27 +334,46 @@ def main (argv):
     with tf.Session() as sess:
         tf.global_variables_initializer().run()
         nodule_model.load(sess)
-        dim, nodules = nodule_model.apply(sess, case, mask)
+        dim, nodules = nodule_model.apply(sess, views, mask)
         pass
     pass
 
 
     fts = []
     pos = []
+    fts.append(pyramid(dim, nodules))   # global
+    pos.append(None)                    # global
     for nodule in nodules:
         fts.append(pyramid(dim, [nodule]))
         pos.append(nodule[3])
         pass
     Nt = np.array(fts, dtype=np.float32)
     Ny = score_model.predict_proba(Nt)[:,1]
+    global_score = Ny[0]
     pw = sorted(zip(pos, list(Ny)), key=lambda x:x[1], reverse=True)
+
+    gal = Gallery(FLAGS.output, cols=4, header=['nodule','score','axial','sagittal','coronal'])
     anno = Annotations()
+    C = 1
     for box, score in pw:
+        if box is None:
+            continue
         if score < 0.1:
             break
         anno.add(box, str(score))
+        gal.text('%d' % C)
+        gal.text('%.4f' % score)
+        for v in VIEWS:
+            cc, (y0, x0, y1, x1) = box_center(box, v)
+            view = views[v]
+            image = get3c(view.images, cc)
+            cv2.rectangle(image, (x0,y0), (x1,y1), (0,255,255))
+            cv2.imwrite(gal.next(), image)
+            pass
+        C += 1
         pass
-    Papaya(FLAGS.output, case, annotations=anno)
+    gal.flush('plumo.html', extra={'score':global_score})
+    Papaya(os.path.join(FLAGS.output, 'papaya'), case, annotations=anno)
     pass
 
 if __name__ == '__main__':

@@ -81,6 +81,7 @@ def extract_nodules (prob, fts, th=0.05, ext=2):
             one.extend(list(fts_sum/weight_sum))
         nodules.append((prob_sum, pos, one, box.bbox))
         pass
+    nodules = sorted(nodules, key=lambda x: -x[0])
     return dim, nodules
 
 def logits2prob (v, scope='logits2prob'):
@@ -345,6 +346,7 @@ def main (argv):
 
     fts = []
     pos = []
+    #print(nodules)
     fts.append(pyramid(dim, nodules))   # global
     pos.append(None)                    # global
     for nodule in nodules:
@@ -353,7 +355,8 @@ def main (argv):
         pass
     Nt = np.array(fts, dtype=np.float32)
     Ny = score_model.predict_proba(Nt)[:,1]
-    global_score = Ny[0]
+    global_score = float(Ny[0])
+    #print('GLOBAL SCORE:', global_score)
     pw = sorted(zip(pos, list(Ny)), key=lambda x:x[1], reverse=True)
 
     gal = Gallery(FLAGS.output, cols=5, header=['nodule','score','axial','sagittal','coronal'])

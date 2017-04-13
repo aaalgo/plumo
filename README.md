@@ -1,10 +1,12 @@
 # Plumo: Lung Cancer Detector for Data Science Bowl 2017
-=======
+
 Author: Wei Dong (wdong@wdong.org)
 
 This repository contains the dockerized version of my best
 single (non-ensembled) lung cancer model for Data Science Bowl 2017
 (cross validation loss around 0.425).
+
+[Sample output](http://aaalgo.com/plumo/plumo-example.zip)
 
 You need nvidia-docker to run the program.
 

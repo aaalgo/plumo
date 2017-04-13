@@ -28,3 +28,5 @@ More models and training code are upcoming.
 ![](http://www.aaalgo.com/plumo/plumo1.png)
 ![](http://www.aaalgo.com/plumo/plumo2.png)
 ![](http://www.aaalgo.com/plumo/plumo3.png)
+
+(Images and samples from the SPIE dataset.)

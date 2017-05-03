@@ -8,6 +8,6 @@ ADD vcglib/vcg /usr/local/include/vcg
 ADD vcglib/wrap /usr/local/include/wrap
 ADD vcglib/eigenlib/Eigen /usr/local/include/Eigen
 ADD vcglib/eigenlib /usr/local/include/eigenlib
-ADD src /adsb3
+ADD src-old /adsb3
 RUN cd /adsb3 && python setup.py build && sudo python setup.py install
 

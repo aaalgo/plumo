@@ -6,6 +6,8 @@ Software Setup:
 - Tensorflow version is r1.1, with cuda-8.0
   and libcudnn.so.5.1.5.
 
+cd src; python setup.py build
+
 
 Data Preparation
 

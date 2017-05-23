@@ -1,0 +1,22 @@
+Software Setup:
+
+- Install https://github.com/aaalgo/picpac
+  (commit b4a0ab776d0c7bf3bac6190ed6c0ddcc364ce233)
+- Run python setup.py build; sudo python setup.py install
+- Tensorflow version is r1.1, with cuda-8.0
+  and libcudnn.so.5.1.5.
+
+
+Data Preparation
+
+- Create a directory/link src/data/adsb3/dicom what contains all dicom data, e.g.
+	src/data/adsb3/dicom/ac4056071f3cc98489b9db3aebfe2b6a/804855d11f3347756b809e3ddff74f72.dcm
+
+- Create a directory/link src/cache
+
+Both dicom and cache data should be backed by SSD storage for fast access.
+
+Reproducing Kaggle Results, (cd src)
+
+- ./adsb3_cache_mask.py		-- This will compute all lung masks and convex hulls.
+

@@ -27,6 +27,5 @@ for uid, _ in ALL_CASES[:1]:
     save_mask(cacheh, binary)
     load_time = time.time()
     print uid, (load_time - start_time)
-    break
 pass
 

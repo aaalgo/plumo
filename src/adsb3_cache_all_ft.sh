@@ -35,6 +35,8 @@
 ./adsb3_cache_ft.py --bits 8 --prob tiny --fts ft1 --fts_dropout
 ./adsb3_cache_ft.py --bits 8 --prob tiny --mode 4
 
+# the above are needed to reproduce kaggle submission
+
 exit
 
 if false

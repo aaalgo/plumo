@@ -16,9 +16,13 @@ Data Preparation
 
 - Create a directory/link src/cache
 
+- wget www.aaalgo.com/plumo/plumo-adsb3-models.tar.bz2
+  and extract under src, so you have src/models/{ft, ft1, ...}.
+
 Both dicom and cache data should be backed by SSD storage for fast access.
 
 Reproducing Kaggle Results, (cd src)
 
 - ./adsb3_cache_mask.py		-- This will compute all lung masks and convex hulls.
-
+- ./adsb3_cache_all_ft.sh
+- ./adsb3_eval.py --reproduce	-- This will evaluate all the above feature data extracted and produce a score of 0.46482.

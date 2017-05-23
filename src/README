@@ -16,7 +16,7 @@ Data Preparation
 
 - Create a directory/link src/cache
 
-- wget www.aaalgo.com/plumo/plumo-adsb3-models.tar.bz2
+- wget http://www.aaalgo.com/plumo/plumo-adsb3-models.tar.bz2
   and extract under src, so you have src/models/{ft, ft1, ...}.
 
 Both dicom and cache data should be backed by SSD storage for fast access.

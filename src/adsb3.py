@@ -3,6 +3,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import os
+import sys
+sys.path.append('build/lib.linux-x86_64-2.7')
 import shutil
 import math
 from glob import glob

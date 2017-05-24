@@ -8,7 +8,7 @@ from adsb3 import *
 
 try_mkdir('cache/mask')
 try_mkdir('cache/hull')
-for uid, _ in ALL_CASES[:1]:
+for uid, _ in ALL_CASES:
     cache = os.path.join('cache/mask', uid + '.npz')
     cacheh = os.path.join('cache/hull', uid + '.npz')
     if os.path.exists(cache) and os.path.exists(cacheh):

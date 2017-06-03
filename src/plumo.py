@@ -489,7 +489,7 @@ class DicomVolume (VolumeBase):
         zs = np.array(zs)
         z_spacing = np.mean(zs)
         assert z_spacing > 0
-        assert np.max(np.abs(zs - z_spacing)) * 1000 < z_spacing
+        assert np.max(np.abs(zs - z_spacing)) * 100 < z_spacing
 
         #self.length = dcms[-1].position[2] - dcms[0].position[2]
         front = dcms[0]

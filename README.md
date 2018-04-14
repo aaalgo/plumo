@@ -6,7 +6,7 @@ This repository contains the dockerized version of my best
 single (non-ensembled) lung cancer model for Data Science Bowl 2017
 (cross validation loss around 0.425).
 
-[Sample output](http://aaalgo.com/plumo/plumo-example.zip)
+[Sample output](http://aaalgo.com/demos/plumo/plumo-example.zip)
 
 You need nvidia-docker to run the program.
 
@@ -25,8 +25,8 @@ server.
 
 More models and training code are upcoming.
 
-![](http://www.aaalgo.com/plumo/plumo1.png)
-![](http://www.aaalgo.com/plumo/plumo2.png)
-![](http://www.aaalgo.com/plumo/plumo3.png)
+![](http://www.aaalgo.com/demos/plumo/plumo1.png)
+![](http://www.aaalgo.com/demos/plumo/plumo2.png)
+![](http://www.aaalgo.com/demos/plumo/plumo3.png)
 
 (Images and samples from the SPIE dataset.)

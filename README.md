@@ -2,6 +2,8 @@
 
 Author: Wei Dong (wdong@wdong.org)
 
+https://www.kaggle.com/c/data-science-bowl-2017/leaderboard
+
 ![image](kaggle.png)
 
 This repository contains the dockerized version of my best

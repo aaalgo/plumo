@@ -2,6 +2,8 @@
 
 Author: Wei Dong (wdong@wdong.org)
 
+![image](kaggle.png)
+
 This repository contains the dockerized version of my best
 single (non-ensembled) lung cancer model for Data Science Bowl 2017
 (cross validation loss around 0.425).

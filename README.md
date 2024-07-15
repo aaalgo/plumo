@@ -1,6 +1,6 @@
 # Plumo: Lung Cancer Detector for Data Science Bowl 2017
 
-Author: Wei Dong (wdong@wdong.org)
+Author: Wei Dong (wdong@wdong.org), Yuanfang Guan (yuanfang.guan@gmail.com)
 
 https://www.kaggle.com/c/data-science-bowl-2017/leaderboard
 
